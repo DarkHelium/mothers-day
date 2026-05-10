@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Mother's Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Italianno&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<script src="image-slot.js"></script>
+<style>
+  :root {
+    --peach-50:  oklch(0.975 0.018 60);
+    --peach-100: oklch(0.945 0.035 55);
+    --peach-200: oklch(0.905 0.055 50);
+    --peach-300: oklch(0.855 0.075 45);
+    --peach-400: oklch(0.790 0.095 40);
+    --cream:     oklch(0.985 0.012 75);
+    --paper:     oklch(0.978 0.014 72);
+    --ink:       oklch(0.32  0.060 30);
+    --ink-soft:  oklch(0.48  0.070 30);
+    --rose:      oklch(0.58  0.115 25);
+    --rose-deep: oklch(0.42  0.110 25);
+    --leaf:      oklch(0.58  0.085 135);
+    --leaf-dark: oklch(0.46  0.085 138);
+    --shadow:    color-mix(in oklab, var(--rose-deep) 22%, transparent);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 40%, var(--peach-100), var(--peach-200) 60%, var(--peach-300));
+    color: var(--ink);
+    font-family: "Cormorant Garamond", "Times New Roman", serif;
+    display: grid;
+    place-items: center;
+    padding: 48px 24px;
+  }
+
+  .stage {
+    width: min(1280px, 100%);
+    position: relative;
+  }
+
+  /* ─── 3D card wrapper ─────────────────────────────────── */
+  .card-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1280 / 1120;
+    perspective: 2600px;
+    transform-style: preserve-3d;
+  }
+  .face {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* ─── The spread (inside of the card) ─────────────────── */
+  .spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--paper);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 60px -20px var(--shadow),
+      0 80px 120px -40px color-mix(in oklab, var(--rose-deep) 30%, transparent);
+    isolation: isolate;
+  }
+  .spread::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1200px 700px at 20% 10%, color-mix(in oklab, var(--peach-100) 70%, transparent), transparent 60%),
+      radial-gradient(1000px 600px at 90% 110%, color-mix(in oklab, var(--peach-200) 50%, transparent), transparent 60%);
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .spread::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 64px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      color-mix(in oklab, var(--rose-deep) 4%, transparent) 30%,
+      color-mix(in oklab, var(--rose-deep) 14%, transparent) 50%,
+      color-mix(in oklab, var(--rose-deep) 4%, transparent) 70%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .page {
+    position: relative;
+    padding: 110px 100px 100px;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+  .page--left  { padding-right: 80px; padding-left: 120px; }
+  .page--right { padding-left: 80px; padding-right: 120px; }
+
+  .eyebrow {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(36px, 4.4vw, 64px);
+    line-height: 0.95;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .title .script {
+    font-family: "Italianno", cursive;
+    font-style: normal;
+    font-size: 1.55em;
+    line-height: 0.7;
+    color: var(--rose);
+    display: inline-block;
+    margin-left: -0.05em;
+  }
+  .title .day {
+    display: block;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.62em;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-top: 4px;
+  }
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 22px 0;
+    color: var(--rose);
+  }
+  .ornament .rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, currentColor 30%, currentColor 70%, transparent);
+    opacity: 0.6;
+  }
+
+  .message {
+    flex: 1 1 0;
+    width: 100%;
+    min-height: 0;
+    padding: 6px 14px 6px 4px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(16px, 1.35vw, 20px);
+    line-height: 1.55;
+    color: var(--ink);
+    outline: none;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    cursor: text;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--rose) 35%, transparent) transparent;
+  }
+  .message::-webkit-scrollbar { width: 6px; }
+  .message::-webkit-scrollbar-track { background: transparent; }
+  .message::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--rose) 30%, transparent);
+    border-radius: 4px;
+  }
+  .message:focus {
+    background: color-mix(in oklab, var(--peach-50) 30%, white);
+    border-radius: 4px;
+  }
+  .message p { margin: 0 0 0.75em 0; }
+  .message p:last-child { margin-bottom: 0; }
+  .message em { font-style: italic; color: var(--rose-deep); }
+  image-slot::part(placeholder) {
+    color: var(--ink-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .signoff {
+    font-family: "Italianno", cursive;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--rose-deep);
+    margin-top: 18px;
+    text-align: right;
+  }
+
+  .right-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .right-head h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 30px;
+    margin: 0;
+    color: var(--ink);
+  }
+  .right-head .num {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .collage {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    grid-template-rows: 1.2fr 1fr;
+    gap: 18px;
+    min-height: 0;
+    min-width: 0;
+  }
+  .collage > * { min-height: 0; min-width: 0; }
+  .photo {
+    width: 100%;
+    height: 100%;
+    background: color-mix(in oklab, var(--peach-50) 60%, white);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 8px 18px -10px var(--shadow),
+      0 22px 40px -22px color-mix(in oklab, var(--rose-deep) 35%, transparent);
+  }
+  .photo--hero { grid-row: 1 / span 2; transform: rotate(-1.2deg); }
+  .photo--a    { transform: rotate(1.6deg); }
+  .photo--b    { transform: rotate(-2.2deg); }
+
+  .caption {
+    margin-top: 18px;
+    font-family: "Italianno", cursive;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--rose-deep);
+    text-align: center;
+  }
+
+  /* ─── Corner roses ─────────────────────────────────────── */
+  .rose {
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+    filter: drop-shadow(0 6px 12px color-mix(in oklab, var(--rose-deep) 18%, transparent));
+  }
+  .rose--tl { top: 8px;  left: 8px;  width: 126px; transform: rotate(-22deg); }
+  .rose--tr { top: 8px;  right: 8px; width: 126px; transform: rotate(22deg); }
+  .rose--bl { bottom: 8px; left: 8px;  width: 126px; transform: rotate(-158deg); }
+  .rose--br { bottom: 8px; right: 8px; width: 126px; transform: rotate(158deg); }
+
+  /* ─── COVER ────────────────────────────────────────────── */
+  .cover {
+    z-index: 10;
+    transform-origin: left center;
+    transition:
+      transform 1.4s cubic-bezier(.45,.05,.2,1),
+      box-shadow 1.4s ease;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 35%, var(--peach-100), var(--peach-200) 55%, var(--peach-300) 100%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 60px -20px var(--shadow),
+      0 80px 120px -40px color-mix(in oklab, var(--rose-deep) 35%, transparent);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .cover-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 80px 100px;
+    text-align: center;
+  }
+  .cover-frame {
+    position: absolute;
+    inset: 36px;
+    border: 1px solid color-mix(in oklab, var(--rose-deep) 32%, transparent);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .cover-frame::before,
+  .cover-frame::after {
+    content: "";
+    position: absolute;
+    width: 36px; height: 36px;
+    border: 1px solid color-mix(in oklab, var(--rose-deep) 45%, transparent);
+  }
+  .cover-frame::before { top: -8px; left: -8px; border-right: 0; border-bottom: 0; }
+  .cover-frame::after  { bottom: -8px; right: -8px; border-left: 0; border-top: 0; }
+
+  .cover-eyebrow {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    align-self: center;
+  }
+  .cover-center {
+    display: grid;
+    place-items: center;
+    gap: 18px;
+    position: relative;
+  }
+  .cover-rose {
+    width: clamp(220px, 32vw, 360px);
+    filter: drop-shadow(0 18px 32px color-mix(in oklab, var(--rose-deep) 30%, transparent));
+  }
+  .cover-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(36px, 5.4vw, 72px);
+    line-height: 1;
+    color: var(--ink);
+    margin: 0;
+  }
+  .cover-title .script {
+    font-family: "Italianno", cursive;
+    font-style: normal;
+    font-size: 1.6em;
+    color: var(--rose);
+    display: block;
+    line-height: 0.9;
+  }
+  .cover-foot {
+    align-self: end;
+    display: grid;
+    place-items: center;
+    gap: 10px;
+  }
+  .open-btn {
+    appearance: none;
+    border: 1px solid color-mix(in oklab, var(--rose-deep) 40%, transparent);
+    background: color-mix(in oklab, var(--cream) 80%, white);
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .2s, transform .2s, border-color .2s;
+  }
+  .open-btn:hover {
+    background: white;
+    border-color: var(--rose-deep);
+    transform: translateY(-1px);
+  }
+  .open-btn .arrow {
+    display: inline-block;
+    margin-left: 8px;
+    transition: transform .3s;
+  }
+  .open-btn:hover .arrow { transform: translateX(3px); }
+  .cover-byline {
+    font-family: "Italianno", cursive;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--rose-deep);
+  }
+
+  .cover-rose-tl, .cover-rose-br {
+    position: absolute;
+    width: 130px;
+    z-index: 1;
+    filter: drop-shadow(0 8px 16px color-mix(in oklab, var(--rose-deep) 22%, transparent));
+  }
+  .cover-rose-tl { top: 8px;  left: 8px;  transform: rotate(-14deg); }
+  .cover-rose-br { bottom: 8px; right: 8px; transform: rotate(160deg); }
+
+  /* OPEN state — cover flips away */
+  .card-wrap.open .cover {
+    transform: rotateY(-172deg);
+    box-shadow: 0 40px 70px -30px rgba(0,0,0,0.35);
+  }
+  .card-wrap.open .open-btn { pointer-events: none; }
+
+  /* close button (shown when open) */
+  .close-btn {
+    position: absolute;
+    top: 24px; right: 24px;
+    appearance: none;
+    border: 1px solid color-mix(in oklab, var(--rose-deep) 30%, transparent);
+    background: color-mix(in oklab, white 85%, var(--peach-50));
+    color: var(--ink-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .4s .8s, transform .4s .8s;
+    z-index: 20;
+  }
+  .card-wrap.open .close-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .footnote {
+    margin-top: 22px;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--ink-soft) 70%, transparent);
+    text-align: center;
+  }
+
+  /* ─── MOBILE ────────────────────────────────────────────── */
+  @media (max-width: 880px) {
+    body { padding: 16px 12px; }
+    .stage { width: 100%; }
+    .card-wrap {
+      aspect-ratio: auto;
+      perspective: none;
+      transform-style: flat;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .face {
+      position: relative;
+      inset: auto;
+      backface-visibility: visible;
+    }
+    .cover {
+      transition: none;
+      aspect-ratio: 4 / 5;
+      cursor: default;
+    }
+    .cover-inner { padding: 48px 32px; }
+    .cover-frame { inset: 20px; }
+    .cover-rose { width: 60vw; max-width: 280px; }
+    .open-btn { display: none; }
+    .close-btn { display: none; }
+    .card-wrap.open .cover { transform: none; }
+
+    .spread {
+      display: flex;
+      flex-direction: column;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.6) inset,
+        0 20px 40px -20px var(--shadow);
+    }
+    .spread::after { display: none; }
+    .page { padding: 96px 28px 96px; }
+    .page--left  { padding: 96px 28px 96px; }
+    .page--right { padding: 70px 28px 96px; }
+    .title  { font-size: clamp(36px, 11vw, 56px); }
+    .message-slot { aspect-ratio: 4 / 3; min-height: 220px; }
+    .signoff { font-size: 44px; }
+
+    .right-head h2 { font-size: 24px; }
+    .collage {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1.4fr 1fr;
+      gap: 12px;
+      aspect-ratio: 4 / 5;
+    }
+    .photo--hero { grid-column: 1 / span 2; grid-row: 1; }
+    .photo--a    { grid-column: 1; grid-row: 2; }
+    .photo--b    { grid-column: 2; grid-row: 2; }
+
+    .rose--tl, .rose--tr, .rose--bl, .rose--br {
+      width: 92px;
+    }
+    .rose--tl { top: 10px;  left: 10px;  }
+    .rose--tr { top: 10px;  right: 10px; }
+    .rose--bl { bottom: 10px; left: 10px; }
+    .rose--br { bottom: 10px; right: 10px; }
+    .cover-rose-tl, .cover-rose-br { width: 90px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────────────────────────────────────
+     ROSE SVG LIBRARY
+     Hand-drawn from petal primitives — outer / mid / inner
+     petal paths rotated around a center, layered with leaves.
+     ──────────────────────────────────────────────────────── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- single petal silhouettes (point upward from origin)
+         fill="currentColor" so we can tint via `color` on wrapping <g> -->
+    <path id="petal-outer" fill="currentColor" d="M0 0 C -32 -10 -44 -56 -16 -78 C 0 -88 16 -88 32 -76 C 56 -56 32 -10 0 0 Z"/>
+    <path id="petal-mid"   fill="currentColor" d="M0 0 C -22 -8 -30 -42 -10 -56 C 0 -62 10 -62 18 -56 C 36 -42 22 -8 0 0 Z"/>
+    <path id="petal-inner" fill="currentColor" d="M0 0 C -14 -6 -20 -28 -6 -38 C 0 -42 6 -42 12 -38 C 22 -28 14 -6 0 0 Z"/>
+
+    <!-- a single leaf with a center vein -->
+    <g id="leaf">
+      <path d="M0 0 C -10 -22 -6 -52 0 -64 C 6 -52 10 -22 0 0 Z" fill="oklch(0.58 0.085 135)"/>
+      <path d="M0 0 C -6 -22 -4 -50 0 -62 C 4 -50 6 -22 0 0 Z" fill="oklch(0.46 0.085 138)" opacity="0.55"/>
+      <line x1="0" y1="-2" x2="0" y2="-60" stroke="oklch(0.35 0.07 138)" stroke-width="0.8" opacity="0.45"/>
+    </g>
+
+    <!-- ─── Top-down rose bloom ─── -->
+    <symbol id="rose-bloom" viewBox="-110 -110 220 220">
+      <!-- leaves behind the bloom -->
+      <g>
+        <use href="#leaf" transform="translate(-66 30) rotate(-65) scale(1.05)"/>
+        <use href="#leaf" transform="translate(70 36) rotate(70) scale(1.0)"/>
+        <use href="#leaf" transform="translate(-20 70) rotate(-15) scale(0.9)"/>
+        <use href="#leaf" transform="translate(38 64) rotate(28) scale(0.85)"/>
+      </g>
+      <!-- outer ring of 5 petals -->
+      <g color="oklch(0.88 0.070 45)">
+        <use href="#petal-outer" transform="rotate(0)"/>
+        <use href="#petal-outer" transform="rotate(72)"/>
+        <use href="#petal-outer" transform="rotate(144)"/>
+        <use href="#petal-outer" transform="rotate(216)"/>
+        <use href="#petal-outer" transform="rotate(288)"/>
+      </g>
+      <!-- outer-petal shadow overlay (creates depth) -->
+      <g color="oklch(0.80 0.090 40)" opacity="0.55">
+        <use href="#petal-outer" transform="rotate(0) scale(0.86)"/>
+        <use href="#petal-outer" transform="rotate(72) scale(0.86)"/>
+        <use href="#petal-outer" transform="rotate(144) scale(0.86)"/>
+        <use href="#petal-outer" transform="rotate(216) scale(0.86)"/>
+        <use href="#petal-outer" transform="rotate(288) scale(0.86)"/>
+      </g>
+      <!-- middle ring (offset 36°) -->
+      <g color="oklch(0.78 0.105 35)">
+        <use href="#petal-mid" transform="rotate(36)"/>
+        <use href="#petal-mid" transform="rotate(108)"/>
+        <use href="#petal-mid" transform="rotate(180)"/>
+        <use href="#petal-mid" transform="rotate(252)"/>
+        <use href="#petal-mid" transform="rotate(324)"/>
+      </g>
+      <g color="oklch(0.70 0.120 32)" opacity="0.55">
+        <use href="#petal-mid" transform="rotate(36) scale(0.82)"/>
+        <use href="#petal-mid" transform="rotate(108) scale(0.82)"/>
+        <use href="#petal-mid" transform="rotate(180) scale(0.82)"/>
+        <use href="#petal-mid" transform="rotate(252) scale(0.82)"/>
+        <use href="#petal-mid" transform="rotate(324) scale(0.82)"/>
+      </g>
+      <!-- inner ring (aligned w/ outer) -->
+      <g color="oklch(0.66 0.130 28)">
+        <use href="#petal-inner" transform="rotate(0)"/>
+        <use href="#petal-inner" transform="rotate(72)"/>
+        <use href="#petal-inner" transform="rotate(144)"/>
+        <use href="#petal-inner" transform="rotate(216)"/>
+        <use href="#petal-inner" transform="rotate(288)"/>
+      </g>
+      <!-- spiral bud center -->
+      <g>
+        <circle cx="0" cy="0" r="14" fill="oklch(0.56 0.135 26)"/>
+        <path d="M -6 -2 C -10 -10 -2 -14 4 -10 C 10 -6 8 4 0 4 C -8 4 -10 -6 -6 -2 Z" fill="oklch(0.46 0.130 25)"/>
+        <path d="M -2 -2 C -4 -6 2 -8 4 -4 C 5 0 0 2 -2 -2 Z" fill="oklch(0.38 0.115 24)"/>
+      </g>
+    </symbol>
+
+    <!-- ─── Rose spray (bloom + bud + leaves, on a stem) ─── -->
+    <symbol id="rose-spray" viewBox="-110 -110 220 220">
+      <!-- stem -->
+      <path d="M 0 90 C 6 50 -8 10 0 -10" stroke="oklch(0.42 0.08 138)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- mid leaves -->
+      <use href="#leaf" transform="translate(-30 40) rotate(-60) scale(0.9)"/>
+      <use href="#leaf" transform="translate(28 50) rotate(55) scale(0.85)"/>
+      <!-- bud bloom (smaller) -->
+      <g transform="translate(0 -10) scale(0.78)">
+        <g color="oklch(0.86 0.075 42)">
+          <use href="#petal-outer" transform="rotate(0)"/>
+          <use href="#petal-outer" transform="rotate(72)"/>
+          <use href="#petal-outer" transform="rotate(144)"/>
+          <use href="#petal-outer" transform="rotate(216)"/>
+          <use href="#petal-outer" transform="rotate(288)"/>
+        </g>
+        <g color="oklch(0.74 0.115 32)">
+          <use href="#petal-mid" transform="rotate(36)"/>
+          <use href="#petal-mid" transform="rotate(108)"/>
+          <use href="#petal-mid" transform="rotate(180)"/>
+          <use href="#petal-mid" transform="rotate(252)"/>
+          <use href="#petal-mid" transform="rotate(324)"/>
+        </g>
+        <g color="oklch(0.62 0.130 27)">
+          <use href="#petal-inner" transform="rotate(0)"/>
+          <use href="#petal-inner" transform="rotate(72)"/>
+          <use href="#petal-inner" transform="rotate(144)"/>
+          <use href="#petal-inner" transform="rotate(216)"/>
+          <use href="#petal-inner" transform="rotate(288)"/>
+        </g>
+        <circle cx="0" cy="0" r="10" fill="oklch(0.50 0.135 26)"/>
+      </g>
+    </symbol>
+
+    <!-- ─── Tiny divider rose (used in the ornament rule) ─── -->
+    <symbol id="rose-tiny" viewBox="-50 -50 100 100">
+      <g color="oklch(0.86 0.075 42)">
+        <use href="#petal-mid" transform="rotate(0)   scale(0.55)"/>
+        <use href="#petal-mid" transform="rotate(72)  scale(0.55)"/>
+        <use href="#petal-mid" transform="rotate(144) scale(0.55)"/>
+        <use href="#petal-mid" transform="rotate(216) scale(0.55)"/>
+        <use href="#petal-mid" transform="rotate(288) scale(0.55)"/>
+      </g>
+      <circle cx="0" cy="0" r="10" fill="oklch(0.62 0.130 26)"/>
+      <circle cx="0" cy="0" r="4"  fill="oklch(0.48 0.130 24)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<main class="stage">
+  <div class="card-wrap" id="cardWrap" data-screen-label="01 Card">
+
+    <!-- ─── INSIDE SPREAD ─────────────────────────────── -->
+    <article class="face spread" data-screen-label="Inside spread">
+      <!-- corner roses (matching bloom in all 4 corners) -->
+      <svg class="rose rose--tl" viewBox="-110 -110 220 220"><use href="#rose-bloom"/></svg>
+      <svg class="rose rose--tr" viewBox="-110 -110 220 220"><use href="#rose-bloom"/></svg>
+      <svg class="rose rose--bl" viewBox="-110 -110 220 220"><use href="#rose-bloom"/></svg>
+      <svg class="rose rose--br" viewBox="-110 -110 220 220"><use href="#rose-bloom"/></svg>
+
+      <!-- left: message page -->
+      <section class="page page--left" data-screen-label="Message page">
+        <div class="eyebrow">With love · May 2026</div>
+        <h1 class="title">
+          <span class="script">Happy</span>
+          <span class="day">Mother's Day</span>
+        </h1>
+        <div class="ornament">
+          <span class="rule"></span>
+          <svg width="26" height="26" viewBox="-50 -50 100 100"><use href="#rose-tiny"/></svg>
+          <span class="rule"></span>
+        </div>
+        <div
+          class="message"
+          contenteditable="true"
+          spellcheck="false"
+          role="textbox"
+          aria-multiline="true"
+          aria-label="Your message"
+        ><p>Mom,</p><p>Old as hell, but still filled with wisdom. I have fun with you everytime I come back. Be it gossiping about whatever drama is out there right now, or be it about girls 😂. I really look forward to spending 2 weeks with you before I go off to my internship, which is my best gift to you. I love how you are able to process emotions so well, and even in a dire situation you keep yourself calm. Must be that years of experience, huh. Anyways, love you and enjoy today with me.</p><p>Love,<br>Your very own Salman Khan (P.S: I'm glad I became your version of a model)</p></div>
+      </section>
+
+      <!-- right: photo collage -->
+      <section class="page page--right" data-screen-label="Photos page">
+        <div class="right-head">
+          <h2>Us, through the years</h2>
+          <span class="num">No. 01</span>
+        </div>
+        <div class="collage">
+          <image-slot id="photo-hero" class="photo photo--hero" shape="rounded" radius="4" fit="cover" placeholder="Hero photo" src="images/IMG_3394.png"></image-slot>
+          <image-slot id="photo-a"    class="photo photo--a"    shape="rounded" radius="4" fit="cover" placeholder="Photo" src="images/IMG_3116.png"></image-slot>
+          <image-slot id="photo-b"    class="photo photo--b"    shape="rounded" radius="4" fit="cover" placeholder="Photo" src="images/IMG_1884.png"></image-slot>
+        </div>
+        <div class="caption">a few of my favorites</div>
+      </section>
+    </article>
+
+    <!-- ─── FRONT COVER (sits on top until opened) ─────── -->
+    <article class="face cover" id="cover" data-screen-label="Front cover" role="button" tabindex="0" aria-label="Open card">
+      <div class="cover-inner">
+        <svg class="cover-rose-tl" viewBox="-110 -110 220 220"><use href="#rose-spray"/></svg>
+        <svg class="cover-rose-br" viewBox="-110 -110 220 220"><use href="#rose-spray"/></svg>
+        <div class="cover-frame"></div>
+
+        <div class="cover-eyebrow">Mother's Day · 2026</div>
+
+        <div class="cover-center">
+          <svg class="cover-rose" viewBox="-110 -110 220 220"><use href="#rose-bloom"/></svg>
+          <h1 class="cover-title">
+            <span class="script">for the oldest</span>
+            mother
+          </h1>
+        </div>
+
+        <div class="cover-foot">
+          <div class="cover-byline">— with love</div>
+          <button class="open-btn" type="button" id="openBtn">
+            Open the card <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <button class="close-btn" type="button" id="closeBtn" aria-label="Close card">Close ✕</button>
+  </div>
+
+</main>
+
+<script>
+  (function() {
+    const wrap = document.getElementById('cardWrap');
+    const cover = document.getElementById('cover');
+    const openBtn = document.getElementById('openBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function open() { wrap.classList.add('open'); }
+    function close() { wrap.classList.remove('open'); }
+    function toggle(e) {
+      // Only toggle when clicking the cover itself, not interactive children
+      if (e && e.target.closest('button')) return;
+      wrap.classList.toggle('open');
+    }
+
+    cover.addEventListener('click', toggle);
+    cover.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+    openBtn.addEventListener('click', (e) => { e.stopPropagation(); open(); });
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+  })();
+</script>
+
+</body>
+</html>
